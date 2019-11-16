@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cwh.score.mapper.AccountAddMapper">
+
+	<update id="addAmount" parameterType="java.util.Map">
+		update t_account set amount
+		= amount + #{amount} where account_no = #{accountNo}
+	</update>
+
+	<update id="decAmount" parameterType="java.util.Map">
+		update t_account set amount
+		= amount - #{amount} where account_no = #{accountNo} and amount >=
+		#{amount}
+	</update>
+
+	<insert id="addTryLog" parameterType="java.lang.String">
+		insert into t_try_log
+		values(#{tid})
+	</insert>
+
+	<insert id="addConfirmLog" parameterType="java.lang.String">
+		insert into
+		t_confirm_log values(#{tid})
+	</insert>
+
+	<insert id="addCancelLog" parameterType="java.lang.String">
+		insert into t_cancel_log
+		values(#{tid})
+	</insert>
+
+	<select id="existTryLog" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(1) from
+		t_try_log where t_id = #{tid}
+	</select>
+
+	<select id="existConfirmLog" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(1) from
+		t_confirm_log where t_id = #{tid}
+	</select>
+
+	<select id="existCancelLog" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(1) from
+		t_cancel_log where t_id = #{tid}
+	</select>
+
+</mapper>

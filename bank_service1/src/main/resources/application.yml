@@ -1,0 +1,60 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /bank-service1
+
+spring:
+  jmx:
+    default-domain: bank-service1
+  application:
+    name: bank-service1
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/orders?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: cwh
+    password: cwh123
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 30
+    initialSize: 5
+    maxWait: 60000
+    minIdle: 5
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictionRunsMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka-service/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    
+org:
+  dromara:
+    hmily:
+      serializer: kryo
+      recoverDelayTime: 30
+      retryMax: 30
+      scheduledDelay: 30
+      scheduledThreadMax: 10
+      repositorySupport: db
+      started: true
+      hmily-db-config:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/hmily?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+        username: cwh
+        password: cwh123
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.cwh.score.mapper
+  
+logger:
+  level:
+    root: error
