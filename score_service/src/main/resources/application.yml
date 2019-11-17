@@ -4,6 +4,8 @@ server:
     context-path: /score-service
 
 spring:
+  jmx:
+    default-domain: score-service
   application:
     name: score-service
   datasource:

@@ -31,8 +31,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka-service/eureka/
-  server:
-    waitTimeInMsWhenSyncEmpty: 0
     
 org:
   dromara:
@@ -58,3 +56,12 @@ mybatis:
 logger:
   level:
     root: error
+
+feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 50000
+        readTimeout: 50000
+                
+    

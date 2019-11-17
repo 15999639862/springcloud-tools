@@ -27,6 +27,7 @@ public class AccountService {
 	@Hmily(confirmMethod = "confirm", cancelMethod = "cancel")
 	public void transfer(Map<String, Object> map) {
 		String tid = HmilyTransactionContextLocal.getInstance().get().getTransId();
+		log.error("transfer tid:{}", tid);
 		int t = accountMapper.existTryLog(tid);
 		if (t > 0) {
 			log.error("try is alreay execute,tid:{}", tid);
@@ -43,18 +44,25 @@ public class AccountService {
 			throw new RuntimeException("扣减余额失败.");
 		}
 		accountMapper.addTryLog(tid);
-		
-		//远程调用转账
-		int result = accountAddFeignClient.addAmount(map);
-		if(result <= 0) {
-			log.error("转账失败.tid:{}",tid);
+
+		// 远程调用转账
+		long result = 0;
+		try {
+			double amount = (double)map.get("amount");
+			result = accountAddFeignClient.addAmount(amount);
+		} catch (Exception e) {
+			log.error("转账失败.tid:{"+tid+"}", e);
+			throw e;
+		}
+		if (result <= 0) {
+			log.error("转账失败.tid:{}", tid);
 			throw new RuntimeException("转账失败.");
 		}
 	}
 
 	public void confirm(Map<String, Object> map) {
 		String tid = HmilyTransactionContextLocal.getInstance().get().getTransId();
-		log.error("confirm tid:{}",tid);
+		log.error("confirm tid:{}", tid);
 	}
 
 	@Transactional

@@ -1,20 +1,17 @@
 package com.cwh.score.feign;
 
-import java.util.Map;
-
 import org.dromara.hmily.annotation.Hmily;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "BANK-SERVICE2",fallback = AccountAddFallback.class)
-@RequestMapping
+@RequestMapping("/bank-service2")
 public interface AccountAddFeignClient {
 	
-	@PostMapping("/addAmount")
+	@RequestMapping("/addAmount")
 	@Hmily
-    int addAmount(@RequestBody Map<String,Object> map);
+    long addAmount(@RequestParam("amount") double amount);
 
 
 }

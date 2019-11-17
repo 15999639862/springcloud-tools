@@ -14,7 +14,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableEurekaClient
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.cwh.score.feign"})
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @ComponentScan({ "com.cwh.score", "org.dromara.hmily" })

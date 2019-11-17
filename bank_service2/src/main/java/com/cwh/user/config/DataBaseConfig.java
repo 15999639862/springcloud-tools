@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
@@ -17,6 +18,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @MapperScan("com.cwh.user.mapper")
 @EnableConfigurationProperties
 @AutoConfigureAfter(value = { HmilyProperty.class,HmilyDBProperty.class})
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class DataBaseConfig {
 
 	@Autowired
@@ -25,9 +27,9 @@ public class DataBaseConfig {
 	@Autowired
 	private HmilyDBProperty hmilyDBProperty;
 	
-	@Bean("duridDataSource")
+	@Bean("dataSource")
 	@ConfigurationProperties(prefix = "spring.datasource")
-	public DruidDataSource duridDataSource() {
+	public DruidDataSource dataSource() {
 		return new DruidDataSource();
 	}
 	

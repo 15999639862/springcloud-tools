@@ -36,7 +36,8 @@ public class AccountAddService {
 			log.error("confirm is already execute,tid:{}",tid);
 			return;
 		}
-		accountAddMapper.addAmount(map);
+		int t1 = accountAddMapper.addAmount(map);
+		log.error("success:t{}",t1);
 		accountAddMapper.addConfirmLog(tid);
 	}
 

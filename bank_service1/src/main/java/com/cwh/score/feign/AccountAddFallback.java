@@ -1,10 +1,8 @@
 package com.cwh.score.feign;
 
-import java.util.Map;
-
 public class AccountAddFallback implements AccountAddFeignClient{
 
-	public int addAmount(Map<String, Object> map) {
+	public long addAmount(double amount) {
 		return 0;
 	}
 

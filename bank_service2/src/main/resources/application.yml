@@ -31,8 +31,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka-service/eureka/
-  server:
-    waitTimeInMsWhenSyncEmpty: 0
 
 org:
   dromara:
