@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /product-service
+
+spring:
+  application:
+    name: product-service
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.105:3306/products?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: cwh19891217
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 30
+    initialSize: 5
+    maxWait: 60000
+    minIdle: 5
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictionRunsMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka-service/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: org.distribute.product.mapper
