@@ -1,11 +1,15 @@
 server:
-  port: 8080
+  port: 8090
   servlet:
     context-path: /order-service
 
 spring:
   application:
     name: order-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: create-order
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.1.106:3306/orders?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
@@ -25,13 +29,30 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka-service/eureka/
+      defaultZone: http://192.168.1.106:8080/eureka-service/eureka/
   server:
     waitTimeInMsWhenSyncEmpty: 0
-
+    
+seata:
+  tx-service-group: order_service_tx_group
+  client:
+    support:
+      spring:
+        datasource-autoproxy: false
+  service:
+    grouplist:
+      default: 192.168.1.106:8091
+    vgroup-mapping:
+      order_service_tx_group: default
+  registry:
+    type: eureka
+    eureka:
+      serviceUrl: http://192.168.1.106:8080/eureka-service/eureka/
+      application: default
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
